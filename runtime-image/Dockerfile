@@ -1,19 +1,19 @@
 # Use the base App Engine Docker image, based on Ubuntu 16.0.4.
-FROM gcr.io/gcp-runtimes/ubuntu_16_0_4:latest
+FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 
 # Install updates and dependencies
 RUN apt-get update -y && \
-    apt-get install --no-install-recommends -y -q \
-      build-essential \
-      ca-certificates \
-      curl \
-      git \
-      imagemagick \
-      libkrb5-dev \
-      netbase \
-      python && \
-    apt-get clean && \
-    rm /var/lib/apt/lists/*_*
+  apt-get install --no-install-recommends -y -q \
+  build-essential \
+  ca-certificates \
+  curl \
+  git \
+  imagemagick \
+  libkrb5-dev \
+  netbase \
+  python && \
+  apt-get clean && \
+  rm /var/lib/apt/lists/*_*
 
 # Add the files necessary for verifying and installing node.
 ADD contents/ /opt/gcp/runtime/
@@ -22,8 +22,8 @@ RUN ln -s /opt/gcp/runtime/install_node /usr/local/bin/install_node
 # Install the latest LTS release of nodejs directly from nodejs.org
 # with the installation aborting if verification of the nodejs binaries fails.
 RUN /opt/gcp/runtime/bootstrap_node \
-    --direct \
-    v8.12.0
+  --direct \
+  v8.12.0
 ENV PATH $PATH:/nodejs/bin
 
 # Install yarn
