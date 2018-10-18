@@ -44,5 +44,5 @@ ENV PORT 8080
 
 WORKDIR /app
 
-# start
+# start, although this won't work because there is no "start"
 CMD ["npm", "start"]
